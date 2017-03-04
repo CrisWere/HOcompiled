@@ -1,11 +1,29 @@
 
 PASOS
 
-#Obtener archivo binario del archivo f-sum.f90
+#Copio archivo f-sum.f90 de la carpeta 01-...
+
+#Comento el include c-sum.h y  agrego la la palabra extern al prototipo de la funcion sum_abs
+	extern int sum_abs(int* inp, int num);
+
+#Cambio prototipo y forma de invocacion de la funcion a void, y agrego un parametro para el resultado
+	extern void sum_abs(int* inp, int num, int asum);
+	sum_abs(data, num, res);
+
+#Cambio los parametros para que reciba punteros ya que en FORTRAN todo es puntero
+	extern void sum_abs(int* inp, int *num, int *asum);
+	sum_abs(data, &num, &res);
+
+#Cambio el nombre de la funcion agregando _ al final del nombre (por convecion) 
+	extern void sum_abs_(int* inp, int *num, int *asum);
+	sum_abs_(data, &num, &res);
+
+
+#Obtengo archivo binario del archivo f-sum.f90
 
      gfortran -c f-sum.f90 -o f-sum_f90.o
 
-#Obtener archivo binario del archivo c-main.c
+#Obtengo archivo binario del archivo c-main.c
 
      gcc -c c-main.c -o c-main.o
 
@@ -13,4 +31,5 @@ PASOS
 
      gcc f-sum_f90.o c-main.o -o c-main.e
 
-
+#Ejecuto
+    ./c-main.e
