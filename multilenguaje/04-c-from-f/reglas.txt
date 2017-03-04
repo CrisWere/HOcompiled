@@ -1,0 +1,36 @@
+PASOS
+
+#Copio archivo c-sum.c desde 02-...
+
+#Elimino el include de "c-sum.h"
+
+#Agrego al archivo .c una funcion sum_abs_ wrapper de la funcion sum_abs para que se adecue a los requerimientos de FORTRAN
+   - Función void
+   - Parámetros por referencia o dirección
+
+	void sum_abs_(int *in, int *num, int *sum){
+	   *sum = sum_abs(in, *num);
+	}
+
+#En el programa de FORTRAN tengo que agregar debajo de las declaraciones la declaración de la interfaz de la función de C para indicarle al compilador que la función sum_abs que usa es una función de C. En la interfaz defino los tipos de datos que recibe la función con los tipos de datos equivalentes de FORTRAN
+
+	interface
+	    subroutine sum_abs_( arre, num , res) bind ( c )
+	      use iso_c_binding
+	      integer ( c_int) :: arre(*)
+	      integer ( c_int ) :: num
+	      integer ( c_int ) :: res
+	    end subroutine sum_abs_
+	  end interface
+
+#Genero archivo binario de c-sum.c 
+	gcc -c c-sum.c
+
+#Genero archivo binario de f-main.f90
+	gfortran -c f-main.f90 -o f-main_f90.o
+
+#Linkeo ambos archivos y genero el archivo ejecutable
+	gfortran f-main_f90.o c-sum.o -o f-main_f90.e
+
+#Ejecuto
+	./f-main_f90.e 
