@@ -1,0 +1,16 @@
+
+PASOS
+
+#Obtener archivo binario del archivo f-sum.f90
+
+     gfortran -c f-sum.f90 -o f-sum_f90.o
+
+#Obtener archivo binario del archivo c-main.c
+
+     gcc -c c-main.c -o c-main.o
+
+#Linkeo
+
+     gcc f-sum_f90.o c-main.o -o c-main.e
+
+
