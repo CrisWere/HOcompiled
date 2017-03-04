@@ -1,0 +1,26 @@
+
+PASOS
+
+#Copio archivo c-main.c desde la carpeta 02-...
+
+#Modifico cpp-sum.h agregando la palabra extern en el prototipo de la funcion
+
+#Modifico el archivo c-main.c para que incluya el archivo cpp-sum.h en lugar de c-sum.h
+
+#Obtengo el archivo binario del archivo cpp-sum.cpp
+
+     gcc -c cpp-sum.cpp   #Genera automaticamente el archivo cpp-sum.o uso flag -o con el nuevoNombre.o
+
+#Obtener archivo binario del archivo c-main.c
+
+     gcc -c c-main.c
+
+
+#Linkeo
+
+     gcc cpp-sum.o c-main.o -o c-main.e
+
+#Ejecuto el archivo generado
+    ./c-main.e
+
+
